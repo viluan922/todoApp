@@ -4,7 +4,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { addTodo } from '../../redux/actions';
 import { v4 as uuidv4} from 'uuid';
 import { useState } from 'react';
-import { todoListSelector,searchTextSelector, todoRemainingSelector } from '../../redux/selectors';
+import { todoRemainingSelector } from '../../redux/selectors';
+import todoListSlice from './todoSlice';
 
 export default function TodoList() {
   const [todoName,setTodoName] = useState('')
@@ -13,9 +14,6 @@ export default function TodoList() {
 
   const todoList = useSelector(todoRemainingSelector)
 
-  // const searchText = useSelector(searchTextSelector)
-  // console.log({todoList,searchText});
-
   const dispatch = useDispatch();
 
   const handleLevelChange=(value) => {
@@ -23,7 +21,8 @@ export default function TodoList() {
   }
 
   const handleAddBtnonClick = ()=> {
-    dispatch(addTodo({
+    dispatch(todoListSlice.actions.addTodo
+    ({
       id: uuidv4(),
       name:todoName
       ,level:levels,
